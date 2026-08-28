@@ -13,6 +13,8 @@ A full-viewport analog clock rendered on a 24-hour dial with configurable, timez
 - **Config reload** — a reload button re-reads `config.json` and re-renders the range wedges without a page refresh.
 - **Fully responsive** — scales to fill any viewport via `vmin`-based sizing; runs as a static page with no server required.
 
+<img width="1259" height="1349" alt="image" src="https://github.com/user-attachments/assets/9d3e24cd-d317-43b5-a7e9-d5b27fcf5190" />
+
 ## Getting Started
 
 Clone the directory and open `index.html` in any modern browser.
