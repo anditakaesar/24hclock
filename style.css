@@ -1,0 +1,283 @@
+:root {
+  --bg: #05070f;
+  --edge: #1b2742;
+  --tick-minor: #26344f;
+  --tick-major: #8fa3c7;
+  --label: #a9bcdd;
+  --label-active: #ffffff;
+  --hour: #e8f0ff;
+  --minute: #67d8ef;
+  --second: #ff5d8f;
+  --font: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: radial-gradient(120% 120% at 50% 30%, #0d1428 0%, var(--bg) 65%);
+  overflow: hidden;
+}
+
+.stage {
+  width: 100vw;
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-wrap {
+  position: relative;
+  width: min(96vw, 96dvh);
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#clock {
+  width: 100%;
+  height: 100%;
+}
+
+.face {
+  fill: url(#faceGrad);
+  stroke: var(--edge);
+  stroke-width: 0.6;
+}
+
+#ranges .range-wedge {
+  fill-opacity: 0.15;
+  stroke-opacity: 0.75;
+  stroke-width: 0.6;
+  cursor: pointer;
+  transition: fill-opacity 0.15s ease;
+}
+
+#ranges .range-wedge:hover {
+  fill-opacity: 0.3;
+}
+
+.clock-ui {
+  position: absolute;
+  left: 50%;
+  top: 35.5%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 0.6vmin;
+}
+
+#tz-select {
+  padding: 0.6vmin 1.1vmin;
+  background: rgba(10, 14, 26, 0.9);
+  color: var(--label);
+  border: 1px solid #3a4a6b;
+  border-radius: 0.7vmin;
+  font-family: var(--font);
+  font-size: 1.3vmin;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+}
+
+#tz-select:focus {
+  border-color: #67d8ef;
+}
+
+#cfg-reload {
+  padding: 0.6vmin 1.1vmin;
+  background: rgba(10, 14, 26, 0.9);
+  color: var(--label);
+  border: 1px solid #3a4a6b;
+  border-radius: 0.7vmin;
+  font-family: var(--font);
+  font-size: 1.3vmin;
+  line-height: 1;
+  cursor: pointer;
+  outline: none;
+}
+
+#cfg-reload:hover {
+  border-color: #67d8ef;
+  color: #67d8ef;
+}
+
+#cfg-reload:active {
+  transform: scale(0.92);
+}
+
+#cfg-reload.flash {
+  border-color: #ffb347;
+  color: #ffb347;
+  box-shadow: 0 0 1.2vmin rgba(255, 179, 71, 0.5);
+}
+
+#tz-select option {
+  background: #0a0e1a;
+  color: var(--label);
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  padding: 6px 10px;
+  background: rgba(10, 14, 26, 0.92);
+  border: 1px solid var(--edge);
+  border-radius: 6px;
+  color: var(--label-active);
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.tooltip.visible {
+  opacity: 1;
+}
+
+#ticks line {
+  stroke-linecap: round;
+}
+
+#ticks line.major {
+  stroke: var(--tick-major);
+  stroke-width: 2.2;
+  filter: drop-shadow(0 0 2px rgba(143, 163, 199, 0.45));
+}
+
+#ticks line.minor {
+  stroke: var(--tick-minor);
+  stroke-width: 1;
+}
+
+#labels text {
+  fill: var(--label);
+  font-family: var(--font);
+  font-size: 10.5px;
+  font-weight: 600;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+#labels text.active {
+  fill: var(--label-active);
+  filter: drop-shadow(0 0 4px rgba(232, 240, 255, 0.8));
+}
+
+#inner .inner-face {
+  fill: rgba(8, 13, 26, 0.85);
+  stroke: var(--edge);
+  stroke-width: 0.5;
+}
+
+#innerTicks line {
+  stroke-linecap: round;
+}
+
+#innerTicks line.major {
+  stroke: #5f7295;
+  stroke-width: 1.4;
+}
+
+#innerTicks line.minor {
+  stroke: #26344f;
+  stroke-width: 0.6;
+}
+
+#inner .inner-hour line {
+  stroke: #c3d4f2;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(195, 212, 242, 0.45));
+}
+
+#inner .inner-minute line {
+  stroke: #4ec6e0;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(78, 198, 224, 0.5));
+}
+
+#inner .inner-second line {
+  stroke: var(--second);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 3px rgba(255, 93, 143, 0.8));
+}
+
+#inner .inner-cap {
+  fill: #eef3ff;
+}
+
+#labels text.minute {
+  fill: #6b7ea1;
+  font-size: 6.5px;
+  font-weight: 500;
+}
+
+#date .date-frame {
+  fill: rgba(8, 13, 26, 0.85);
+  stroke: #3a4a6b;
+  stroke-width: 0.6;
+}
+
+#date .date-text {
+  fill: var(--label);
+  font-family: var(--font);
+  font-size: 5.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+#date .time-text {
+  fill: #c9d8f2;
+  font-family: var(--font);
+  font-size: 5.5px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+#hands .hand line {
+  stroke-linecap: round;
+}
+
+#hands .hand.hour line {
+  stroke: var(--hour);
+  stroke-width: 4.2;
+  filter: drop-shadow(0 0 5px rgba(232, 240, 255, 0.5));
+}
+
+#hands .hand.minute line {
+  stroke: var(--minute);
+  stroke-width: 2.6;
+  filter: drop-shadow(0 0 5px rgba(103, 216, 239, 0.6));
+}
+
+#hands .cap {
+  fill: #eef3ff;
+  stroke: var(--second);
+  stroke-width: 1;
+}

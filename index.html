@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24h Analog Clock</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="stage">
+    <div class="clock-wrap">
+      <svg id="clock" viewBox="-100 -100 200 200" role="img" aria-label="24 hour analog clock">
+        <defs>
+          <radialGradient id="faceGrad" cx="50%" cy="38%" r="75%">
+            <stop offset="0%"  stop-color="#121c33"/>
+            <stop offset="70%" stop-color="#0c1324"/>
+            <stop offset="100%" stop-color="#080d1a"/>
+          </radialGradient>
+        </defs>
+        <circle class="face" r="97"/>
+        <g id="ranges"></g>
+        <g id="ticks"></g>
+        <g id="labels"></g>
+        <g id="inner" transform="translate(50, 0)">
+          <circle class="inner-face" r="18"/>
+          <g id="innerTicks"></g>
+          <g id="innerHands">
+            <g class="inner-hour" id="innerHour">
+              <line x1="0" y1="5" x2="0" y2="-10"/>
+            </g>
+            <g class="inner-minute" id="innerMinute">
+              <line x1="0" y1="7" x2="0" y2="-15"/>
+            </g>
+            <g class="inner-second" id="innerSecond">
+              <line x1="0" y1="6" x2="0" y2="-17"/>
+            </g>
+            <circle class="inner-cap" r="1.2"/>
+          </g>
+        </g>
+        <g id="date">
+          <rect class="date-frame" x="-22" y="-55" width="44" height="25" rx="4"/>
+          <text class="date-text" x="0" y="-46.5"></text>
+          <text class="time-text" x="0" y="-39"></text>
+        </g>
+        <g id="hands">
+          <g class="hand hour" id="hourHand">
+            <line x1="0" y1="14" x2="0" y2="-56"/>
+          </g>
+          <g class="hand minute" id="minuteHand">
+            <line x1="0" y1="20" x2="0" y2="-84"/>
+          </g>
+          <circle class="cap" r="3"/>
+        </g>
+      </svg>
+      <div class="clock-ui">
+        <select id="tz-select" aria-label="Clock timezone"></select>
+        <button id="cfg-reload" title="Reload config" aria-label="Reload config">&#8635;</button>
+      </div>
+    </div>
+  </main>
+  <div id="tooltip" class="tooltip"></div>
+  <script type="application/json" id="clock-config">
+    {
+      "ranges": [
+        {
+          "start": "09:00",
+          "end": "12:00",
+          "label": "Peak Window 1",
+          "timezone": "UTC+8",
+          "color": "#ffb347"
+        },
+        {
+          "start": "14:00",
+          "end": "18:00",
+          "label": "Peak Window 2",
+          "timezone": "UTC+8",
+          "color": "#67d8ef"
+        }
+      ]
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+</html>

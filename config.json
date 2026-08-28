@@ -1,0 +1,18 @@
+{
+  "ranges": [
+    {
+      "start": "09:00",
+      "end": "12:00",
+      "label": "Peak Window 1",
+      "timezone": "UTC+8",
+      "color": "#ffb347"
+    },
+    {
+      "start": "14:00",
+      "end": "18:00",
+      "label": "Peak Window 2",
+      "timezone": "UTC+8",
+      "color": "#67d8ef"
+    }
+  ]
+}
